@@ -10,16 +10,15 @@ const sinon       = require('sinon');
 describe('Test calculator with addition', () => {
     const calculator = new Calculator();
     const fakeOps    = {
-        run(number1, number2) {
-            return sinon.fake.returns(2019);
-        }
+
+        run: sinon.fake.returns(2020)
     }
     calculator.register('fake', fakeOps);
 
     it('should return result from operator', () => {
         const result = calculator.calculate('fake', 1, 2);
-        chai.assert.equal(fakeOps.run(1, 2), 2019);
-        sinon.assert.calledOnce(fakeOps.run(1, 2));
-        sinon.assert(fakeOps.run().calledWith(1, 2));
+        chai.assert.equal(result, 2020);
+        chai.assert(fakeOps.run.calledOnce, 'expect operator should be run once');
+        chai.assert(fakeOps.run.calledWith(1,2), 'expect operator should be called with 1, 2');
     });
 });
