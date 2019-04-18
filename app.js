@@ -10,7 +10,6 @@ const sinon       = require('sinon');
 describe('Test calculator for each function', () => {
     const calculator = new Calculator();
     const fakeOps    = {
-
         run: sinon.fake.returns(2020)
     }
     calculator.register('fake', fakeOps);
