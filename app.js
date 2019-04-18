@@ -7,19 +7,33 @@ const chai        = require('chai');
 const sinon       = require('sinon');
 
 
-describe('Test calculator with addition', () => {
+describe('Test calculator for each function', () => {
     const calculator = new Calculator();
-    const fakeOps    = {
-        run(number1, number2) {
-            return sinon.fake.returns(2019);
-        }
-    }
-    calculator.register('fake', fakeOps);
 
-    it('should return result from operator', () => {
-        const result = calculator.calculate('fake', 1, 2);
-        sinon.assert.equals(calculator.calculate('fake', 1 , 2), 2019);
-        sinon.assert.calledOnce(fakeOps.run(1, 2));
-        sinon.assert(fakeOps.run().calledWith(1, 2));
+    it('can do multiply', () => {
+        calculator.register('*', new Multiply())
+        chai.assert.equal(calculator.calculate('*', 1, 2), 2);
+    });
+
+    it('can do divison', () => {
+        calculator.register('/', new Division())
+        chai.assert.equal(calculator.calculate('/', 4, 2), 2);
+    });
+
+    it('can do addition', () => {
+        calculator.register('+', new Addition())
+        chai.assert.equal(calculator.calculate('+', 1, 2), 3);
+    });
+
+    it('can do subtraction', () => {
+        calculator.register('-', new Subtraction())
+        chai.assert.equal(calculator.calculate('-', 3, 2), 1);
+    });
+
+    it('should be throw error if operator is not supported', () => {
+        chai.assert.throw(() => {
+            calculator.calculate('x' , 5 , 6);
+        },`Operator [x] is not supported!`);
     });
 });
+
