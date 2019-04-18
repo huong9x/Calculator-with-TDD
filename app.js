@@ -4,21 +4,17 @@ const Subtraction = require('./Operator/subtraction');
 const Multiply    = require('./Operator/mutiply');
 const Division    = require('./Operator/division');
 const chai        = require('chai');
-const sinon       = require('sinon');
+const FakeOps     = require('./Operator/faker');
 
 
 describe('Test calculator for each function', () => {
-    const calculator = new Calculator();
-    const fakeOps    = {
-        run: sinon.fake.returns(2020)
-    }
-    calculator.register('fake', fakeOps);
+    const calculator   = new Calculator();
+    const fakeOperator = new FakeOps();
+    
+    calculator.register('fake', fakeOperator);
 
     it('should return result from operator', () => {
-        const result = calculator.calculate('fake', 1, 2);
-        chai.assert.equal(result, 2020);
-        chai.assert(fakeOps.run.calledOnce, 'expect operator should be run once');
-        chai.assert(fakeOps.run.calledWith(1,2), 'expect operator should be called with 1, 2');
+        chai.assert.equal(calculator.calculate('fake', 1, 2), 2020);
     });
 
     it('can do multiply', () => {
