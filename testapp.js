@@ -1,8 +1,4 @@
 const Calculator  = require('./calculator');
-const Addition    = require('./Operator/addition');
-const Subtraction = require('./Operator/subtraction');
-const Multiply    = require('./Operator/mutiply');
-const Division    = require('./Operator/division');
 const chai        = require('chai');
 const sinon       = require('sinon');
 
